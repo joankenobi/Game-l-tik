@@ -1,0 +1,19 @@
+@import "tailwindcss";
+
+@theme {
+  --color-tiktok-black: #010101;
+  --color-tiktok-white: #ffffff;
+  --color-tiktok-teal: #25F4EE;
+  --color-tiktok-red: #FE2C55;
+
+  --animate-pulse-fast: pulse 1s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@layer base {
+  body {
+    background-color: var(--color-tiktok-black);
+    color: var(--color-tiktok-white);
+    font-family: 'Inter', sans-serif;
+    overflow: hidden;
+  }
+}
