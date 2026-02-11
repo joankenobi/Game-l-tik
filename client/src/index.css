@@ -6,12 +6,77 @@
   --color-tiktok-teal: #25F4EE;
   --color-tiktok-red: #FE2C55;
 
+  /* Stitch Style Palette */
+  --color-fire-primary: #FF4500;
+  --color-fire-secondary: #FF8C00;
+  --color-fire-bright: #FFD700;
+  --color-ice-primary: #0F52BA;
+  --color-ice-secondary: #C0C0C0;
+  --color-ice-accent: #00FFFF;
+  --color-background-dark: #0a0a0a;
+  --color-background-metallic: #151515;
+
   --animate-pulse-fast: pulse 1s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  
+  /* Custom Animations */
+  --animate-pulse-glow-fire: pulse-glow-fire 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  --animate-float: float 3s ease-in-out infinite;
+  --animate-slide-up: slide-up 0.4s ease-out forwards;
+  --animate-rise-ember: rise-ember 2.5s linear infinite;
+  --animate-solar-flare: solar-flare 2s ease-in-out infinite;
+  --animate-flame-wave: flame-wave 0.8s ease-in-out infinite alternate;
+  --animate-marquee: marquee 15s linear infinite;
+  --animate-shake: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
+  --animate-pop: pop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+  --animate-shimmer: shimmer 2s linear infinite;
+
+  @keyframes pulse-glow-fire {
+    0%, 100% { opacity: 1; box-shadow: 0 0 30px #FF4500; }
+    50% { opacity: .8; box-shadow: 0 0 15px #FF8C00; }
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+  }
+  @keyframes slide-up {
+    0% { transform: translateY(50px); opacity: 0; }
+    100% { transform: translateY(0); opacity: 1; }
+  }
+  @keyframes rise-ember {
+    0% { transform: translateY(0) scale(1); opacity: 1; }
+    100% { transform: translateY(-120px) scale(0); opacity: 0; }
+  }
+  @keyframes solar-flare {
+    0%, 100% { box-shadow: 0 0 25px #FFD700, 0 0 50px #FF4500; transform: scale(1); }
+    50% { box-shadow: 0 0 50px #FFD700, 0 0 80px #FF4500; transform: scale(1.05); }
+  }
+  @keyframes flame-wave {
+    0% { transform: scaleY(1) skewX(0deg); }
+    100% { transform: scaleY(1.05) skewX(1deg); }
+  }
+  @keyframes marquee {
+    0% { transform: translateX(100%); }
+    100% { transform: translateX(-100%); }
+  }
+  @keyframes shake {
+    10%, 90% { transform: translate3d(-1px, 0, 0); }
+    20%, 80% { transform: translate3d(2px, 0, 0); }
+    30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
+    40%, 60% { transform: translate3d(4px, 0, 0); }
+  }
+  @keyframes pop {
+    0% { transform: scale(0.5); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+  }
+  @keyframes shimmer {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+  }
 }
 
 @layer base {
   body {
-    background-color: var(--color-tiktok-black);
+    background-color: var(--color-background-dark);
     color: var(--color-tiktok-white);
     font-family: 'Inter', sans-serif;
     overflow: hidden;

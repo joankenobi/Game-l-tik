@@ -4,7 +4,7 @@
     "description": "Backend for TikTok Live Country Battle",
     "main": "index.js",
     "scripts": {
-        "start": "node index.js",
+        "start": "npx ts-node src/index.ts",
         "dev": "nodemon index.js"
     },
     "keywords": [],
@@ -18,6 +18,12 @@
         "tiktok-live-connector": "^1.1.20"
     },
     "devDependencies": {
-        "nodemon": "^3.0.1"
+        "@types/cors": "^2.8.19",
+        "@types/express": "^5.0.6",
+        "@types/node": "^25.2.3",
+        "@types/socket.io": "^3.0.1",
+        "nodemon": "^3.0.1",
+        "ts-node": "^10.9.2",
+        "typescript": "^5.9.3"
     }
 }

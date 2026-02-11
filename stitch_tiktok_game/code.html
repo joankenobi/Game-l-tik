@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>TikTok Country Battle Mobile View</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "fire-primary": "#FF4500", 
+                        "fire-secondary": "#FF8C00", 
+                        "fire-bright": "#FFD700", 
+                        "ice-primary": "#0F52BA", 
+                        "ice-secondary": "#C0C0C0", 
+                        "ice-accent": "#00FFFF", 
+                        "background-dark": "#0a0a0a",
+                        "background-metallic": "#151515", 
+                    },
+                    fontFamily: {
+                        "display": ["Plus Jakarta Sans", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "1rem", "lg": "1.5rem", "xl": "2rem", "2xl": "2.5rem", "full": "9999px"},
+                    animation: {
+                        'pulse-glow-fire': 'pulse-glow-fire 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'float': 'float 3s ease-in-out infinite',
+                        'slide-up': 'slide-up 0.4s ease-out forwards',
+                        'rise-ember': 'rise-ember 2.5s linear infinite',
+                        'solar-flare': 'solar-flare 2s ease-in-out infinite',
+                        'flame-wave': 'flame-wave 0.8s ease-in-out infinite alternate',
+                        'marquee': 'marquee 15s linear infinite',
+                        'shake': 'shake 0.5s cubic-bezier(.36,.07,.19,.97) both',
+                        'pop': 'pop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards',
+                    },
+                    keyframes: {
+                        'pulse-glow-fire': {
+                            '0%, 100%': { opacity: 1, boxShadow: '0 0 30px #FF4500' },
+                            '50%': { opacity: .8, boxShadow: '0 0 15px #FF8C00' },
+                        },
+                        'float': {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-6px)' },
+                        },
+                        'slide-up': {
+                            '0%': { transform: 'translateY(50px)', opacity: 0 },
+                            '100%': { transform: 'translateY(0)', opacity: 1 },
+                        },
+                        'rise-ember': {
+                            '0%': { transform: 'translateY(0) scale(1)', opacity: 1 },
+                            '100%': { transform: 'translateY(-120px) scale(0)', opacity: 0 },
+                        },
+                        'solar-flare': {
+                            '0%, 100%': { boxShadow: '0 0 25px #FFD700, 0 0 50px #FF4500', transform: 'scale(1)' },
+                            '50%': { boxShadow: '0 0 50px #FFD700, 0 0 80px #FF4500', transform: 'scale(1.05)' },
+                        },
+                        'flame-wave': {
+                            '0%': { transform: 'scaleY(1) skewX(0deg)' },
+                            '100%': { transform: 'scaleY(1.05) skewX(1deg)' },
+                        },
+                        'marquee': {
+                            '0%': { transform: 'translateX(100%)' },
+                            '100%': { transform: 'translateX(-100%)' },
+                        },
+                        'shake': {
+                            '10%, 90%': { transform: 'translate3d(-1px, 0, 0)' },
+                            '20%, 80%': { transform: 'translate3d(2px, 0, 0)' },
+                            '30%, 50%, 70%': { transform: 'translate3d(-4px, 0, 0)' },
+                            '40%, 60%': { transform: 'translate3d(4px, 0, 0)' }
+                        },
+                        'pop': {
+                            '0%': { transform: 'scale(0.5)', opacity: '0' },
+                            '100%': { transform: 'scale(1)', opacity: '1' }
+                        }
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body {max-width: 450px; 
+            margin: 0 auto;
+            background-color: #000;
+        }
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        .glass-panel {
+            background: rgba(20, 20, 20, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .glass-card-rank {
+            background: linear-gradient(90deg, rgba(30, 30, 30, 0.9), rgba(20, 20, 20, 0.8));
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .text-glow-fire {
+            text-shadow: 0 0 15px rgba(255, 69, 0, 0.9);
+        }
+        .text-glow-ice {
+            text-shadow: 0 0 10px rgba(0, 255, 255, 0.7);
+        }
+        .text-stroke-black {
+            -webkit-text-stroke: 1px black;
+        }
+        .ember-particle {
+            position: absolute;
+            background: radial-gradient(circle, #FFD700, #FF4500);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 50;
+        }
+        .bg-flame-pattern {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' fill='%23FF4500' fill-opacity='0.1'%3E%3Cpath d='M50 0 C20 40 0 50 0 100 L100 100 C100 50 80 40 50 0 Z' /%3E%3C/svg%3E");
+            background-size: cover;
+        }
+    </style>
+</head>
+<body class="font-display bg-background-dark text-white h-screen overflow-hidden flex flex-col relative shadow-2xl border-x border-zinc-800">
+<div class="absolute inset-0 z-0 pointer-events-none overflow-hidden">
+<div class="absolute top-0 left-0 w-full h-[50%] bg-gradient-to-b from-slate-900 to-transparent opacity-80"></div>
+<div class="absolute top-[10%] left-1/2 -translate-x-1/2 w-[300px] h-[300px] bg-fire-primary/20 blur-[100px] rounded-full animate-pulse-glow-fire"></div>
+<div class="absolute bottom-0 w-full h-[300px] bg-gradient-to-t from-black via-slate-900/80 to-transparent"></div>
+<div class="absolute top-20 left-10 w-1 h-1 bg-yellow-400 rounded-full animate-float opacity-80" style="animation-duration: 4s;"></div>
+<div class="absolute top-40 right-10 w-1.5 h-1.5 bg-orange-500 rounded-full animate-float opacity-60" style="animation-duration: 5s; animation-delay: 1s;"></div>
+<div class="absolute top-1/2 left-5 w-1 h-1 bg-red-500 rounded-full animate-float opacity-70" style="animation-duration: 6s;"></div>
+</div>
+<header class="relative z-20 pt-4 px-4 pb-2 flex flex-col items-center">
+<div class="flex items-center gap-2 mb-2">
+<span class="text-[10px] font-bold uppercase tracking-[0.2em] text-zinc-400 bg-zinc-900/50 px-2 py-0.5 rounded border border-zinc-700">Final Round</span>
+</div>
+<div class="relative">
+<div class="absolute inset-0 bg-red-600 blur-xl opacity-20 rounded-full animate-pulse"></div>
+<div class="bg-gradient-to-b from-zinc-800 to-zinc-900 border border-red-500/40 rounded-xl px-5 py-1.5 flex items-center gap-3 shadow-[0_0_25px_rgba(255,0,0,0.15)] relative z-10">
+<span class="material-icons-round text-red-500 text-lg animate-pulse">timer</span>
+<span class="text-3xl font-black tabular-nums tracking-wider text-white text-glow-fire leading-none">00:59</span>
+</div>
+</div>
+<div class="w-full h-1 bg-zinc-800 rounded-full mt-3 overflow-hidden">
+<div class="h-full bg-gradient-to-r from-red-600 via-yellow-500 to-red-600 w-[85%] shadow-[0_0_10px_#FF4500] animate-[shimmer_2s_linear_infinite]"></div>
+</div>
+</header>
+<section class="relative z-10 flex-shrink-0 px-2 pt-2 pb-6 flex items-end justify-center h-[38vh] gap-2">
+<div class="flex flex-col items-center group relative z-10 w-[28%] animate-slide-up" style="animation-delay: 0.1s;">
+<div class="mb-2 relative">
+<div class="w-16 h-16 rounded-full border-2 border-slate-300 shadow-[0_0_15px_rgba(255,255,255,0.2)] overflow-hidden relative">
+<img alt="Brazil Flag" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAcINvWyGr2cqChugvVvpOo3uRWPgENpLgGqeuyDMniS2mEMZPCAQCJZDVvkKUk3LArBsH1LUoOSbc8dhfAiGf7bLjaP7XNvER6ha5zp2IXYw_LpF9QOPRIvPkURdzREE2WpopmO8vpA3CED5Rmj1VpXJLmk-VbOIa7W8Sg0r0B4YN_8_JgPH1b-SHGTLhq64ctkYMrfXlyKslD-LA_hHsIkBtQBhKZDLBIFbC7Bj4YrkEvPeuNyoDpqUfKJLoogCH7wPvrxYcKJsg"/>
+</div>
+<div class="absolute -bottom-2 left-1/2 -translate-x-1/2 bg-slate-800 text-white rounded-full w-6 h-6 flex items-center justify-center font-black border border-slate-400 text-xs shadow-lg">2</div>
+</div>
+<div class="bg-gradient-to-t from-slate-800 to-slate-800/60 backdrop-blur-sm rounded-t-lg w-full h-32 border-t border-x border-slate-600/40 flex flex-col items-center justify-end p-2 relative overflow-hidden">
+<h3 class="text-xs font-bold text-slate-300 uppercase tracking-tight mb-0.5">Brazil</h3>
+<span class="text-sm font-extrabold text-white tabular-nums">480k</span>
+<div class="h-16 w-full mt-2 bg-gradient-to-t from-slate-600 to-transparent opacity-30"></div>
+</div>
+</div>
+<div class="flex flex-col items-center group relative z-20 w-[38%] -mb-2 animate-slide-up">
+<div class="absolute -top-16 z-50 animate-[bounce_0.8s_infinite] w-full flex justify-center">
+<div class="bg-gradient-to-r from-yellow-500 to-red-600 text-white text-[10px] font-black px-2 py-0.5 rounded-full border border-yellow-300 shadow-[0_0_15px_#FF4500] uppercase tracking-wide transform -rotate-3">
+                 MVP: @USA_Fan
+             </div>
+</div>
+<div class="mb-3 relative scale-110">
+<div class="absolute inset-0 bg-fire-primary blur-2xl rounded-full animate-pulse-glow-fire scale-125 opacity-80"></div>
+<div class="w-20 h-20 rounded-full border-[3px] border-fire-bright shadow-[0_0_30px_rgba(255,69,0,0.8)] overflow-hidden relative z-10 ring-2 ring-orange-500/50">
+<img alt="USA Flag" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCRanuwpgS7unVVuxe0ACCqVnM-HABh4aIT-Q6oDPYIBY455-fNZN_yNUzEjSXgpc1j9MvPEoA5btE9mq_uTsfBRj7O0bx5JQq0GgdjuoVoxlU9gP_znqBBlPcf_mqf_9XEs-NMzmElcEhmY5ZdfbYtQeKegM-B7jdBIjpk32Dc8HbV7MkRXh6vxD1InRbMmO8hVzYGj-nxe1IPqLC4a_ZdZzwJwUM_DBXj4aoVu2SYc6P9jT979B5XywjimFGSxpFxE0eZKRijaR0"/>
+<div class="absolute inset-0 bg-gradient-to-tr from-orange-500/40 to-transparent mix-blend-overlay"></div>
+</div>
+<div class="absolute -bottom-3 left-1/2 -translate-x-1/2 bg-gradient-to-br from-yellow-300 via-orange-500 to-red-600 text-white rounded-full w-9 h-9 flex items-center justify-center font-black border-2 border-white text-lg shadow-[0_0_20px_rgba(255,215,0,0.8)] z-20 animate-solar-flare">1</div>
+<div class="absolute -top-8 left-1/2 -translate-x-1/2 text-4xl z-20 drop-shadow-[0_4px_8px_rgba(0,0,0,0.8)] filter hue-rotate-15 animate-float">👑</div>
+</div>
+<div class="bg-gradient-to-t from-fire-primary/40 to-slate-900/80 backdrop-blur-md rounded-t-xl w-full h-44 border-t-2 border-x-2 border-fire-bright/60 flex flex-col items-center justify-end p-2 relative overflow-hidden shadow-[0_0_40px_rgba(255,69,0,0.3)]">
+<div class="absolute bottom-0 left-0 w-full h-[90%] bg-gradient-to-t from-red-600 via-fire-primary to-yellow-400 opacity-90 animate-flame-wave origin-bottom shadow-[0_0_30px_#FF4500]">
+<div class="absolute top-0 left-0 w-full h-2 bg-white/60 blur-[2px]"></div>
+<div class="ember-particle w-1 h-1 left-[20%] bottom-[40%] animate-rise-ember" style="animation-duration: 1.5s;"></div>
+<div class="ember-particle w-1.5 h-1.5 left-[50%] bottom-[30%] animate-rise-ember" style="animation-duration: 2s; animation-delay: 0.2s"></div>
+<div class="ember-particle w-1 h-1 left-[80%] bottom-[50%] animate-rise-ember" style="animation-duration: 1.8s; animation-delay: 0.5s"></div>
+<div class="ember-particle w-2 h-2 left-[40%] bottom-[20%] animate-rise-ember" style="animation-duration: 2.2s; animation-delay: 0.1s"></div>
+</div>
+<h3 class="text-sm font-black text-white uppercase tracking-tighter mb-0.5 relative z-10 drop-shadow-md">USA</h3>
+<span class="text-xl font-extrabold text-white tabular-nums tracking-tight drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] relative z-10">624k</span>
+<span class="material-icons-round text-3xl text-yellow-300 drop-shadow-[0_0_10px_rgba(255,215,0,0.8)] relative z-10 animate-[pulse_0.5s_infinite]">local_fire_department</span>
+</div>
+</div>
+<div class="flex flex-col items-center group relative z-10 w-[28%] animate-slide-up" style="animation-delay: 0.2s;">
+<div class="mb-2 relative">
+<div class="w-16 h-16 rounded-full border-2 border-orange-800 shadow-[0_0_15px_rgba(150,50,0,0.3)] overflow-hidden relative">
+<img alt="Japan Flag" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA15h8VUrLrDsGtx7lEIhgrKWJ3fqZ3lj_dP6MkibkAlQiMzoAHxf3CQOqF86HgtSnLx_NeH4UJVR6qCGj3HybWIL0pw46s0fW21d2MRCyPo9PA0531aiWUINHaKacnB7KSpkIqT0PIlBCVH2Kgeiwd3uKya5sKtPRi8qYJh6xTGNB5rO8swO3Zm5FStC_D4HNo6a48nnEjjVz-WPe4eMG5KFPj6yCemGcR-iCdmV0Hfc7NXDQFLb7FF-ZJgmgk2WQVcsA4Z6ijBus"/>
+</div>
+<div class="absolute -bottom-2 left-1/2 -translate-x-1/2 bg-slate-800 text-white rounded-full w-6 h-6 flex items-center justify-center font-black border border-orange-800 text-xs shadow-lg">3</div>
+</div>
+<div class="bg-gradient-to-t from-orange-900/40 to-slate-800/60 backdrop-blur-sm rounded-t-lg w-full h-24 border-t border-x border-orange-800/40 flex flex-col items-center justify-end p-2 relative overflow-hidden">
+<h3 class="text-xs font-bold text-slate-300 uppercase tracking-tight mb-0.5">Japan</h3>
+<span class="text-sm font-extrabold text-white tabular-nums">312k</span>
+<div class="h-12 w-full mt-2 bg-gradient-to-t from-orange-900 to-transparent opacity-40"></div>
+</div>
+</div>
+</section>
+<main class="flex-1 overflow-y-auto no-scrollbar relative z-10 bg-background-dark/50 backdrop-blur-sm rounded-t-3xl border-t border-white/10 shadow-[0_-5px_20px_rgba(0,0,0,0.5)]">
+<div class="sticky top-0 z-20 bg-background-dark/90 backdrop-blur-md px-4 py-3 border-b border-white/5 flex justify-between items-center">
+<h2 class="text-xs font-bold text-zinc-400 uppercase tracking-widest flex items-center gap-1">
+<span class="material-icons-round text-sm">leaderboard</span> Leaderboard
+        </h2>
+<span class="text-[10px] bg-white/10 px-2 py-0.5 rounded text-white/60">Top 20</span>
+</div>
+<div class="p-2 space-y-1.5 pb-24">
+<div class="glass-card-rank p-2 rounded-xl flex items-center gap-3 animate-pop" style="animation-delay: 0.3s;">
+<div class="font-black text-white/50 text-sm w-6 text-center">4</div>
+<img alt="Mexico Flag" class="w-8 h-8 rounded-full border border-white/20 object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCT6CCoSiF7uuSbsaiBD_-pvI4oX14XMzMEbZDDo95cIW_ZBtCwt3kIOaf3xKSJpay9ACgp1rfNq13UQE-gNZMGSzmUhGQkJc19WEgu1uD5D7FhCKO2NICF8N6wMUo0aMj58Lbp7W9uxQtiL7HPhnaVFJGizY6UZCe-YfJE4eHvJHEpvMh894JoFBu9YoC4XluMlNXNbCNzzy_6muLiU5UWWL2M7fy6wyvn10CJ9wgB5GhCo0vrkIhTTBS-ZrC6IjdttvtGJrJ7giU"/>
+<div class="flex-1">
+<div class="flex justify-between items-center mb-1">
+<span class="font-bold text-sm text-white">Mexico</span>
+<span class="font-bold text-xs text-ice-accent">298k</span>
+</div>
+<div class="h-1.5 w-full bg-zinc-800 rounded-full overflow-hidden">
+<div class="h-full bg-gradient-to-r from-ice-primary to-ice-accent w-[85%] rounded-full shadow-[0_0_5px_#00FFFF]"></div>
+</div>
+</div>
+</div>
+<div class="glass-card-rank p-2 rounded-xl flex items-center gap-3 animate-pop" style="animation-delay: 0.35s;">
+<div class="font-black text-white/30 text-sm w-6 text-center">5</div>
+<img alt="UK Flag" class="w-8 h-8 rounded-full border border-white/20 object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA_QeH5P4dXIEm6HNLNN8mqUY5Z-55JyCp8sDIy4Z4Tpfhk3gVzX6IJZcFF2t8Gt9OTgqejUEDDFjETry1rJ11XfCGOOIlPNgCtD6GopPyKLGMYRAegg_aFv4ARHnX_EqvVr5FRmWMxN342zMzoBJf8IToblCAmVlph-8x384Hxph9ffT-JTzTTpvgdi9ZkVQ5yxY0dSr53PfHC0d_hAAKLwCDZWzpaKFCob6hajSNswBcvEDRr6p7B4ach-Zxr-gk1HBBJscjzDnI"/>
+<div class="flex-1">
+<div class="flex justify-between items-center mb-1">
+<span class="font-bold text-sm text-white">UK</span>
+<span class="font-bold text-xs text-slate-300">245k</span>
+</div>
+<div class="h-1.5 w-full bg-zinc-800 rounded-full overflow-hidden">
+<div class="h-full bg-gradient-to-r from-blue-900 to-ice-primary w-[70%] rounded-full"></div>
+</div>
+</div>
+</div>
+<div class="glass-card-rank p-2 rounded-xl flex items-center gap-3 animate-pop" style="animation-delay: 0.4s;">
+<div class="font-black text-white/30 text-sm w-6 text-center">6</div>
+<img alt="Germany Flag" class="w-8 h-8 rounded-full border border-white/20 object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAsslsOtHOTS_0cmZrdzCiFn4Yp_acoBZPVA_53dvaYfDN9GVcJ5Z2Y71X5Iq5_uT7ml7t9iTeTonqMozuGUyyEziPof_FON6cff7Kd1jIqygeAUxF4bOZlpk2AGcdJOUfSugL0FJ1K8BYJW1QkvN5ooeVUskQbEcY_q_1ne3EonxfUZgJTAua4bBaRckRRpDJpusXCmTmfXiO3_IlZOozvNHLr9Dkuucf50hfrIVK5WVhfCfKKadjx9LtgJ1x8_lL-gBnqBdAY2_Q"/>
+<div class="flex-1">
+<div class="flex justify-between items-center mb-1">
+<span class="font-bold text-sm text-white">Germany</span>
+<span class="font-bold text-xs text-slate-300">210k</span>
+</div>
+<div class="h-1.5 w-full bg-zinc-800 rounded-full overflow-hidden">
+<div class="h-full bg-gradient-to-r from-blue-900 to-ice-primary w-[60%] rounded-full"></div>
+</div>
+</div>
+</div>
+<div class="glass-card-rank p-2 rounded-xl flex items-center gap-3 animate-pop" style="animation-delay: 0.45s;">
+<div class="font-black text-white/30 text-sm w-6 text-center">7</div>
+<img alt="South Korea Flag" class="w-8 h-8 rounded-full border border-white/20 object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAmrfyA_T2jVcZ0TNWVospYU8KkpK3mEgTq1MsqsvPs0Qe-Tfo5VwIqe0DOBvUz-jvNoVKPoXT0BsNxmUmbMs3QWBeUFgNsN7BbYiUDxxoO2CCThQn0uRLQpyX6pxoD2t-YTFrtzazhDqaA0YZHPmKULFDtLw4nJynYfgBDpvaMXWBkQCJ6z6wNpzDQANnb_pa0oqLhm73gBVvdjE7I8yIlCjCfst4yXIusP8OtGPkHXgVllc8XulvXmn_YwYHmuZ3LTE_owL0IPr8"/>
+<div class="flex-1">
+<div class="flex justify-between items-center mb-1">
+<span class="font-bold text-sm text-white">Korea</span>
+<span class="font-bold text-xs text-slate-300">198k</span>
+</div>
+<div class="h-1.5 w-full bg-zinc-800 rounded-full overflow-hidden">
+<div class="h-full bg-gradient-to-r from-blue-900 to-ice-primary w-[55%] rounded-full"></div>
+</div>
+</div>
+</div>
+<div class="glass-card-rank p-2 rounded-xl flex items-center gap-3 animate-pop" style="animation-delay: 0.5s;">
+<div class="font-black text-white/30 text-sm w-6 text-center">8</div>
+<img alt="Canada Flag" class="w-8 h-8 rounded-full border border-white/20 object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDUfgJDsvLyqEiKTu99Iba0NDUOWSPn139tOamV-uGZ_2ZoIEu_hwrSc8sKXVXlfMJ6XYwZqG-l1dDhVqdw_z586wt-hqxFeUrjJp_030Xe4LkcVuwfgLsXaEndCB0oPdoDd4o8c10jLld2VCE39sJsSAs4Upik8UCWDOwdL9bHJ8nJaOgQQtvCL5l7gTh8fFX0hI-cbAhREy2mLf0ViDw1nDZTIKFE-VkUBu4b3I7fdKQZ-vOxKv73ObzU1_dDuFt8fuDOW1bD0LU"/>
+<div class="flex-1">
+<div class="flex justify-between items-center mb-1">
+<span class="font-bold text-sm text-white">Canada</span>
+<span class="font-bold text-xs text-slate-300">185k</span>
+</div>
+<div class="h-1.5 w-full bg-zinc-800 rounded-full overflow-hidden">
+<div class="h-full bg-gradient-to-r from-blue-900 to-ice-primary w-[50%] rounded-full"></div>
+</div>
+</div>
+</div>
+<div class="glass-card-rank p-2 rounded-xl flex items-center gap-3 opacity-80">
+<div class="font-black text-white/30 text-sm w-6 text-center">9</div>
+<img alt="France Flag" class="w-8 h-8 rounded-full border border-white/20 object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAWAnm7z1iQVfFJaKSxv13vw3DUxj03r3DGDtvuR4686_Hm3w59dS0mz29lyJrTGbmKA68_pqxai2CgPyicvNYR03tPM1ntyItfKJ6O_T2nDaHkEqt3XoJ4h3eP467yaGAp5YHzzEZpt98iLJxOEh37uaMJeNZCbQ8d-kj9I5vaWPDix39_82PYj5pRHU-bwGLlQPjpG9lpCZapzYO_jZEQGcFgqz5-mGt87rdD5Ae-BSPrX8sU0ToVTuztuX061xrqXUDToR8v4w4"/>
+<div class="flex-1">
+<div class="flex justify-between items-center mb-1">
+<span class="font-bold text-sm text-white">France</span>
+<span class="font-bold text-xs text-slate-300">172k</span>
+</div>
+<div class="h-1.5 w-full bg-zinc-800 rounded-full overflow-hidden">
+<div class="h-full bg-gradient-to-r from-blue-900 to-ice-primary w-[45%] rounded-full"></div>
+</div>
+</div>
+</div>
+<div class="glass-card-rank p-2 rounded-xl flex items-center gap-3 opacity-70">
+<div class="font-black text-white/30 text-sm w-6 text-center">10</div>
+<img alt="India Flag" class="w-8 h-8 rounded-full border border-white/20 object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD33LpiTOIHipL3RkWfwGkMF1g6V85hAEgRAKe6syYcDJzGJ69r3FcHS9ERCrLqX_ELFa5o0XDte0a6fomW3xpGq1mzNAsy98qXqlzfgz2MV0AooVm7sspfvLiN0-GNtHOfDpZdKkND7d7XAsRAv6qHfNCHshNdss0PBd1qx_fRuKtc5z1JbrMhvOnan2v7inbo0XhsNFdmDysJG-Aml7OS7zxZbeBLBCKXYb_ZE9io0qH_NwMnKxaKPVdM_Q1PZi_hL5yNHjItP0c"/>
+<div class="flex-1">
+<div class="flex justify-between items-center mb-1">
+<span class="font-bold text-sm text-white">India</span>
+<span class="font-bold text-xs text-slate-300">160k</span>
+</div>
+<div class="h-1.5 w-full bg-zinc-800 rounded-full overflow-hidden">
+<div class="h-full bg-gradient-to-r from-blue-900 to-ice-primary w-[42%] rounded-full"></div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<div class="absolute bottom-4 left-3 right-3 z-50">
+<div class="bg-black/80 backdrop-blur-md rounded-full px-4 py-2 flex items-center gap-3 border border-fire-primary/30 shadow-lg overflow-hidden">
+<span class="material-icons-round text-fire-primary text-sm animate-pulse">campaign</span>
+<div class="flex-1 overflow-hidden relative h-5">
+<div class="absolute whitespace-nowrap animate-marquee flex gap-8 items-center text-xs font-medium text-slate-200">
+<span><span class="text-fire-secondary font-bold">@user882</span> sent a <span class="text-fire-primary font-bold">Dragon 🐉</span> to <span class="text-white font-bold text-glow-fire">USA</span> (+500 pts)</span>
+<span><span class="text-ice-accent font-bold">@tiktok_fan</span> liked <span class="text-fire-secondary font-bold">Brazil</span> x50 times!</span>
+<span><span class="text-fire-primary font-bold">@kpop_stan</span> gifted <span class="text-fire-primary">Fireball 🔥</span> to <span class="text-white font-bold">Japan</span></span>
+</div>
+</div>
+</div>
+</div>
+<div class="absolute inset-0 pointer-events-none z-40 overflow-hidden">
+<div class="ember-particle w-1 h-1 left-[50%] top-[40%] animate-rise-ember opacity-0" style="animation-delay: 0.2s;"></div>
+<div class="ember-particle w-1.5 h-1.5 left-[45%] top-[45%] animate-rise-ember opacity-0" style="animation-delay: 0.5s;"></div>
+<div class="ember-particle w-1 h-1 left-[55%] top-[42%] animate-rise-ember opacity-0" style="animation-delay: 0.8s;"></div>
+<div class="ember-particle w-0.5 h-0.5 left-[48%] top-[38%] animate-rise-ember opacity-0" style="animation-delay: 1.2s;"></div>
+<div class="ember-particle w-1 h-1 left-[52%] top-[35%] animate-rise-ember opacity-0" style="animation-delay: 0.1s;"></div>
+</div>
+
+</body></html>
