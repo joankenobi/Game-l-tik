@@ -40,18 +40,26 @@ function App() {
     });
 
     newSocket.on('likeEvent', (data) => {
-      const id = Math.random().toString(36).substr(2, 9);
-      const newLike = { ...data, id, type: 'like' };
-      setActiveLikes(prev => [...prev, newLike]);
+      // Spawn multiple hearts based on likeCount for "real-time" feel
+      // Use a multiplier or a capped count to avoid performance issues
+      const heartsToSpawn = Math.min(data.likeCount || 1, 10);
 
-      // Update ticker occasionally for likes (to avoid spam)
-      if (Math.random() > 0.7) {
-        setTickerEvents(prev => [...prev.slice(-19), newLike]);
+      for (let i = 0; i < heartsToSpawn; i++) {
+        setTimeout(() => {
+          const id = Math.random().toString(36).substr(2, 9) + i;
+          const newLike = { ...data, id, type: 'like' };
+          setActiveLikes(prev => [...prev.slice(-49), newLike]); // Cap list size
+
+          setTimeout(() => {
+            setActiveLikes(prev => prev.filter(l => l.id !== id));
+          }, 1200);
+        }, i * 150); // Stagger the spawn
       }
 
-      setTimeout(() => {
-        setActiveLikes(prev => prev.filter(l => l.id !== id));
-      }, 1000);
+      // Update ticker occasionally for likes (to avoid spam)
+      if (Math.random() > 0.8) {
+        setTickerEvents(prev => [...prev.slice(-19), { ...data, id: Date.now(), type: 'like' }]);
+      }
     });
 
     newSocket.on('event', (data) => {
@@ -208,7 +216,7 @@ function App() {
             </AnimatePresence>
             {gameState.countries.length === 0 && (
               <div className="text-center p-10 text-zinc-500 text-sm">
-                Waiting for battle to start...
+                Write your country USA, Argentina, Peru and play sending likes...
               </div>
             )}
           </div>
@@ -217,6 +225,34 @@ function App() {
 
       {/* Footer Ticker */}
       <EventTicker events={tickerEvents} />
+
+      {/* Global Likes Layer (For non-registered users) */}
+      <div className="fixed inset-0 pointer-events-none z-[40]">
+        <AnimatePresence>
+          {activeLikes.filter(l => l.country === 'USA').map((like) => (
+            <motion.div
+              key={like.id}
+              initial={{ opacity: 0, scale: 0, y: '100vh', x: `${Math.random() * 80 + 10}vw` }}
+              animate={{
+                opacity: [0, 1, 0],
+                y: '-10vh',
+                x: `${Math.random() * 20 - 10 + 50}vw`,
+                scale: [0.5, 1.5, 1],
+                rotate: Math.random() * 360
+              }}
+              transition={{ duration: 3, ease: "easeOut" }}
+              className="absolute"
+            >
+              <div className="flex flex-col items-center">
+                <span className="text-2xl drop-shadow-[0_0_10px_rgba(255,0,0,0.5)]">❤️</span>
+                <span className="text-[10px] font-bold text-white/60 bg-black/30 px-1 rounded backdrop-blur-sm">
+                  {like.username}
+                </span>
+              </div>
+            </motion.div>
+          ))}
+        </AnimatePresence>
+      </div>
 
       {/* Game Over Overlay */}
       {gameOverData && <Leaderboard topContributors={gameOverData.topContributors} onPlayAgain={startGame} />}
