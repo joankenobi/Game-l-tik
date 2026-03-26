@@ -183,6 +183,12 @@ function App() {
             Room: {status.roomId}
           </div>
         )}
+
+        {status.error && (
+          <div className="text-[10px] bg-red-900/40 text-red-400 px-3 py-1 rounded border border-red-500/20 backdrop-blur-sm shadow-lg animate-fade-in max-w-[200px] text-center">
+            {status.error}
+          </div>
+        )}
       </div>
 
       {/* Main Game Area */}

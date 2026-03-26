@@ -1,0 +1,7 @@
+fastapi
+uvicorn
+python-socketio
+TikTokLive
+pydantic
+python-dotenv
+aiohttp
